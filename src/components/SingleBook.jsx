@@ -1,53 +1,32 @@
 import { Component } from "react";
-import { Card, Col, Row } from "react-bootstrap";
-
-// const SingleBook = (props) => {
-//   const { title, img } = props.book;
-//   return (
-//     <Row className="justify-content-center align-items-center">
-//       <Col xs={3}>
-//         <Card className="mb-4 h-100 text-white" bg="dark">
-//           <Card.Img
-//             variant="top"
-//             src={img}
-//             alt={title}
-//             className="img-fluid object-fit-cover"
-//             style={{ height: "400px" }}
-//           />
-//           <Card.Body>
-//             <Card.Title>{title}</Card.Title>
-//           </Card.Body>
-//         </Card>
-//       </Col>
-//     </Row>
-//   );
-// };
+import { Badge, Button, Card } from "react-bootstrap";
 
 class SingleBook extends Component {
   state = {
     selected: false,
   };
+
   render() {
-    const { title, img } = this.props.book;
-    const { selected } = this.state;
+    const { book } = this.props;
 
     return (
-      <Row className="justify-content-center align-items-center">
-        <Col xs={3}>
-          <Card className="mb-4 h-100 text-white" bg="dark" onClick={() => this.setState({ selected: !selected })}>
-            <Card.Img
-              variant="top"
-              src={img}
-              alt={title}
-              className="img-fluid object-fit-cover"
-              style={{ height: "400px", border: selected ? "2px solid red" : "none" }}
-            />
-            <Card.Body>
-              <Card.Title>{title}</Card.Title>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+      <Card className={`mb-4 h-100 text-white ${this.state.selected ? "border-danger" : ""}`} bg="dark">
+        <Card.Img
+          variant="top"
+          src={book.img}
+          alt={book.title}
+          className="img-fluid object-fit-cover"
+          style={{ height: "400px" }}
+          onClick={() => this.setState({ selected: !this.state.selected })}
+        />
+        <Card.Body>
+          <Card.Title>{book.title}</Card.Title>
+          <Card.Text>
+            {book.description} <Badge bg="primary">{book.price}€</Badge>
+          </Card.Text>
+          <Button variant="success">Acquista</Button>
+        </Card.Body>
+      </Card>
     );
   }
 }
